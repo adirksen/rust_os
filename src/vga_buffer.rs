@@ -11,8 +11,6 @@ lazy_static! {
     });
 }
 
-
-
 #[allow(dead_code)] // hide unused code warnings
 #[derive(Debug, Clone, Copy, PartialEq, Eq)] // Enable copy semantics for type
 #[repr(u8)]
