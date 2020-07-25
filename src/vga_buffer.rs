@@ -30,4 +30,24 @@ impl ColorCode {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[repr(C)]
+struct ScreenChar {
+    ascii_character: u8,
+    color_code: ColorCode,
+}
 
+const BUFFER_HEIGHT: usize = 25;
+const BUFFER_WIDTH: usize = 80;
+
+#[repr(transparent)]
+struct Buffer {
+    chars: [[ScreenChar; BUFFER_WIDTH]; BUFFER_HEIGHT],
+}
+
+/* Always writes to last line and shifts lines up when lin is full or on \n */
+pub struct Writer {
+    column_position: usize, // tracks current position in the last row
+    color_code: ColorCode,
+    buffer: &'static mut Buffer, // specifies reference is valid for whole program run time
+}
